@@ -1,0 +1,207 @@
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Customers LIST</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="pull-right">
+                    <a href="" class="btn btn-default" >Add Customer</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Users <small>List</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>                      
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="alert alert-success" id="alert-success"  ng-show="successmessage!=''">   {{successmessage}} 
+                        </div>
+                        <div class="alert alert-error"  id="alert-error" ng-show="errmessage!=''">
+                            {{errmessage}}
+                        </div>                       
+                          
+                        <table ng-table="customerstList" show-filter="true" class="table table-striped table-bordered">
+                    <tr ng-repeat="(k,v) in data">
+
+                        <td data-title="'First Name'" sortable="'fname'" filter="{ 'fname': 'text' }">
+                            {{v.fname}}
+                        </td>
+                        <td data-title="'Last Name'" sortable="'lname'" filter="{ 'lname': 'text' }">
+                            {{v.lname}}
+                        </td>
+                        <td data-title="'Email'" sortable="'emailid'" filter="{ 'emailid': 'text' }">
+                            {{v.emailid}}
+                        </td>
+                        <td data-title="'Phone'" sortable="'mobileno'" filter="{ 'mobileno': 'text' }">
+                            {{v.mobileno}}
+                        </td>
+                        <td data-title="'VC Number'" sortable="'vc_number'" filter="{ 'vc_number': 'text' }">
+                            {{v.vc_number}}
+                        </td>
+                        <td data-title="'View'">
+                            <a href="javascript:void(0);" data-ng-click="getUserData(v)"  title="View" data-toggle="modal" data-target="#userViewModal"> <i class="fa fa-eye" aria-hidden="true"></i></a>
+                           <!--  <div ng-if="v.standing ==1 ">
+                             <input type="checkbox" checked="true" class="switch" data-id="{{$index}}" data-name="{{v.pk_cust_id}}"/>   
+                            </div> 
+                            <div ng-if="v.standing ==0 ">
+                             <input type="checkbox" checked="false" class="switch" data-id="{{$index}}" data-name="{{v.pk_cust_id}}"/>   
+                            </div>   
+                             -->
+                            <!--  <input type="checkbox" data-ng-checked="{{v.standing==0}}" class="switch" data-id="{{$index}}" data-name="{{v.pk_cust_id}}"/> -->
+                            <div class="onoffswitch">
+                             <input data-ng-checked="{{v.standing_status}}" data-ng-model="v.standing_status"  id="onoffswitch_{{v.pk_cust_id}}"   data-ng-click="statusChange(v)" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" />
+                             <label class="onoffswitch-label" for="onoffswitch_{{v.pk_cust_id}}">
+                                 <span class="onoffswitch-inner"></span>
+                                 <span class="onoffswitch-switch"></span>
+                             </label>
+                         </div>
+                        </td>
+                    </tr>
+                </table> 
+
+
+                 <!--<table ng-table="customerstList" show-filter="true" class="table table-striped table-bordered">
+                    <tr ng-repeat="row in data" ng-form="rowForm" demo-tracked-table-row="row">
+                        <td title="'Name'" filter="{fname: 'text'}" sortable="'fname'" ng-switch="row.isEditing" ng-class="fname.$dirty ? 'bg-warning' : ''" ng-form="fname" demo-tracked-table-cell>
+                        <span ng-switch-default class="editable-text">{{row.fname}}</span>
+                        <div class="controls" ng-class="fname.$invalid && fname.$dirty ? 'has-error' : ''" ng-switch-when="true">
+                          <input type="text" name="fname" ng-model="row.fname" class="editable-input form-control input-sm" required />
+                        </div>
+                      </td>
+
+                      <td>
+                        <button class="btn btn-primary btn-sm" ng-click="demo.save(row, rowForm)" ng-if="row.isEditing" ng-disabled="rowForm.$pristine || rowForm.$invalid"><span class="fa fa-check"></span></button>
+                        <button class="btn btn-default btn-sm" ng-click="cancel(row, rowForm)" ng-if="row.isEditing"><span class="fa fa-remove"></span></button>
+                        <button class="btn btn-default btn-sm" ng-click="row.isEditing = true" ng-if="!row.isEditing"><span class="fa fa-pencil"></span></button>
+                        <button class="btn btn-danger btn-sm" ng-click="del(row)" ng-if="!row.isEditing"><span class="fa fa-trash"></span></button>
+                      </td>
+
+                        <td data-title="'First Name'" sortable="'fname'" filter="{ 'fname': 'text' }">
+                            {{v.fname}}
+                        </td>
+                        <td data-title="'Last Name'" sortable="'lname'" filter="{ 'lname': 'text' }">
+                            {{v.lname}}
+                        </td>
+                        <td data-title="'Email'" sortable="'emailid'" filter="{ 'emailid': 'text' }">
+                            {{v.emailid}}
+                        </td>
+                        <td data-title="'Phone'" sortable="'mobileno'" filter="{ 'mobileno': 'text' }">
+                            {{v.mobileno}}
+                        </td>
+                        <td data-title="'VC Number'" sortable="'vc_number'" filter="{ 'vc_number': 'text' }">
+                            {{v.vc_number}}
+                        </td>
+                        <td data-title="'View'">
+                            <a href="javascript:void(0);" data-ng-click="getUserData(v)"  title="View" data-toggle="modal" data-target="#userViewModal"> <i class="fa fa-eye" aria-hidden="true"></i></a>
+                            
+                        </td> 
+                    </tr>
+                </table>-->
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+
+<!-- Modal -->
+<div class="modal fade" id="userViewModal" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" 
+                        data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Customer - {{cust.fname}}&nbsp;{{cust.lname}}
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <form class="form-horizontal col-md-offset-1" role="form">
+
+
+
+                    <div class="form-group">
+                        <label class="col-md-4 text-normal" for="inputEmail">First Name</label>
+                        <div class="col-md-1">
+                            :
+                        </div>
+                        <div class="col-md-7">
+                            <p class="break-line">{{cust.fname}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 text-normal" for="inputEmail">Last Name</label>
+                        <div class="col-md-1">
+                            :
+                        </div>
+                        <div class="col-md-7">
+                            <p class="break-line">{{cust.lname}}</p>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <label class="col-md-4 text-normal" for="inputEmail">Email Id</label>
+                        <div class="col-md-1">
+                            :
+                        </div>
+                        <div class="col-md-7">
+                            <p class="break-line">{{cust.emailid}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group required">
+                        <label for="inputEmail" class="col-md-4 text-normal">Mobile</label>
+                        <div class="col-md-1">
+                            :
+                        </div>
+                        <div class="col-md-7">
+                            <p class="break-line">{{cust.mobileno}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group required">
+                        <label for="inputEmail" class="col-md-4 text-normal">VC Number</label>
+                        <div class="col-md-1">
+                            :
+                        </div>
+                        <div class="col-md-7">
+                            <p class="break-line">{{cust.vc_number}}</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                    Close
+                </button>                
+            </div>
+        </div>
+    </div>
+</div>

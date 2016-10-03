@@ -1,0 +1,38 @@
+<div> 
+<div class="login_wrapper">
+<div class="animate form login_form">
+<section class="login_content">
+<div class="alert alert-danger" ng-show="errmessage!=''">
+
+{{errmessage}}
+</div>
+<form novalidate name="loginForm" autocomplete="off">
+<h1>Login Form</h1>
+<div class="form-group elVal">
+<input type="text" class="form-control" name="email" id="email" placeholder="Email" ng-model="login.email" 	validator="required,email" required-error-message="Email is required" email-error-message="Invalid email address" valid-method="watch" />
+</div>
+<div class="form-group elVal">
+<input type="password" name="password" value="" placeholder="Password" class="form-control" ng-model="login.password" validator="required" required-error-message="Password is required" valid-method="watch" />
+</div>
+<div>
+<button type="submit" class="btn btn-default submit" validation-submit="loginForm" ng-click="doLogin()"> Log in</button>              
+</div>
+
+<div class="clearfix"></div>
+
+<div class="separator">
+
+<div class="clearfix"></div>
+<br />
+
+<div>
+<h1><i class="fa fa-paw"></i> Aadhar!</h1>
+<p>©2016 All Rights Reserved. Aadhar APP. Privacy and Terms</p>
+</div>
+</div>
+</form>
+</section>
+</div>
+
+</div>
+</div>

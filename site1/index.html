@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!-- CSS (load bootstrap) -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"> 
+<link href="css/custom.min.css" rel="stylesheet">
+<link href="css/custom.css" rel="stylesheet"> 
+
+<title>Aadhar Angular</title>
+</head>
+
+<!-- apply our angular app to our site -->
+<body ng-app="myApp" class="nav-md">
+
+<!-- NAVIGATION -->
+<div class="container body">
+<div class="main_container">
+<div ng-include="'common/userHeader.html'" ng-show="userInfo"></div> <!-- userHeader -->    
+<div ng-include="'common/sideHeader.html'" ng-show="userInfo"></div> 
+<div ui-view></div>
+<div ng-include="'common/footer.html'" ng-show="userInfo"></div> <!-- footer -->
+</div>
+</div>
+<!-- MAIN CONTENT -->
+<!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/custom.min.js"></script> 
+<script src="lib/angular.js"></script>
+<script src="lib/angular-ui-router.min.js"></script>
+
+<script src="lib/angular-validation/angular-validation.js"></script>
+<script src="lib/angular-validation/angular-validation-rule.js"></script>
+<script src="lib/angular-localstorage/angular-local-storage.js"></script>
+<script src="lib/angular-ng-table/ng-table.js"></script>
+<script type="text/javascript" src="lib/mainjs/ui-load.js"></script>
+<script src="app.js"></script>
+<script src="lib/systemservice.js"></script>
+<script src="js/login.js"></script>
+<script src="js/customers.js"></script>
+</body>
+</html>
