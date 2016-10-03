@@ -77,8 +77,8 @@ myApp.controller('customerController', function($scope, $rootScope, $state, $fil
         $scope.cust = indexval;        
     };
   
-    $scope.statusChange=function(status,Fromvalue){
-        console.log(status);
+    $scope.statusChange=function(Fromvalue){
+               
         /*if(Fromvalue.standing=="1")
         {
             console.log("Inactive");
