@@ -77,18 +77,8 @@ myApp.controller('customerController', function($scope, $rootScope, $state, $fil
         $scope.cust = indexval;        
     };
   
-    $scope.statusChange=function(Fromvalue){
-               
-        /*if(Fromvalue.standing=="1")
-        {
-            console.log("Inactive");
-            Fromvalue.standing_enum="0";
-        }
-        else
-        {
-            console.log("Active");
-            Fromvalue.standing_enum="1";
-        }*/
+    $scope.statusChange=function(Fromvalue){             
+        
         Fromvalue.standing_enum = Fromvalue.standing_status? "1" :"0";
         console.log(Fromvalue.standing_enum);
         
