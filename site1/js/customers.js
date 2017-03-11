@@ -1,6 +1,12 @@
 'use strict';
 angular.module('customers', ['ngTable']);
 
+//Html tag convert
+myApp.filter('to_trusted', ['$sce', function ($sce) {
+        return function (text) {
+            return $sce.trustAsHtml(text);
+        };
+    }]);
 //Factories
 myApp.factory('customerServices', ['$http', function ($http) {
 
@@ -60,7 +66,7 @@ myApp.factory('customerServices', ['$http', function ($http) {
 
 //Controllers
 //myApp.controller('customerController', ['$scope','customerServices', '$location', '$rootScope','$timeout','ngTableParams', function ($scope, customerServices, $location, $rootScope,$timeout,ngTableParams) {
-myApp.controller('customerController', function ($scope, $rootScope, $state, $filter, customerServices, NgTableParams, $timeout) {
+myApp.controller('customerController', function ($scope, $rootScope, $state, $filter, customerServices, NgTableParams, $timeout, $location) {
 
     $scope.errmessage = '';
     $scope.successmessage = '';
@@ -121,6 +127,7 @@ myApp.controller('customerController', function ($scope, $rootScope, $state, $fi
                 }
                 else
                 {
+                    console.log(result.data.msg);
                     $scope.errmessage = result.data.msg;
                     $timeout(function () {
                         $scope.errmessage = '';

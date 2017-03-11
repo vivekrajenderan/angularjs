@@ -14,9 +14,7 @@
         </div>
 
         <div class="clearfix"></div>
-        <div class="alert alert-danger" ng-show="errmessage != ''">
-
-            {{errmessage}}
+        <div class="alert alert-danger" ng-show="errmessage != ''" ng-bind-html="errmessage | to_trusted">            
         </div>
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -74,7 +72,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">VC Number <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="vc_number" name="vc_number"  ng-model="customer.vc_number" class="form-control col-md-7 col-xs-12" maxlength="30" minlength="3">
+                                    <input type="text" id="vc_number" name="vc_number"  ng-model="customer.vc_number" class="form-control col-md-7 col-xs-12" maxlength="30" minlength="3" validator="required,minlength,maxlength" required-error-message="VC Number is required" minlength-error-message="VC Number must be greater than 3 characters" maxlength-error-message="VC Number must be less than 30 characters" valid-method="watch">
                                 </div>
                             </div>
                             <div class="ln_solid"></div>

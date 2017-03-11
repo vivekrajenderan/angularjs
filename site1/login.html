@@ -2,9 +2,8 @@
 <div class="login_wrapper">
 <div class="animate form login_form">
 <section class="login_content">
-<div class="alert alert-danger" ng-show="errmessage!=''">
+<div class="alert alert-danger" ng-show="errmessage!=''" ng-bind-html="errmessage | to_trusted">
 
-{{errmessage}}
 </div>
     <form novalidate name="loginForm" autocomplete="off">
 <h1>Login Form</h1>
