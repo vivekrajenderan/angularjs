@@ -44,7 +44,12 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             url: '/customers',
             templateUrl: 'partials/customers.html',
             controller: 'customerController'
-        }) 
+        })
+        .state('addcustomer', {
+            url: '/addcustomer',
+            templateUrl: 'partials/addcustomer.html',
+            controller: 'customerController'
+        })
         .state('users', {
             url: '/users',
             templateUrl: 'partials/users.html',
@@ -77,16 +82,25 @@ myApp.config(function($httpProvider, $urlRouterProvider) {
     $httpProvider.interceptors.push(function($injector, $location) {
         return {
             request: function(config) {
+                console.log(config.url.indexOf('/'));  
                 if (config.url.indexOf('/') === 0) {                    
                     // create instance for systemService 
                     var systemService = $injector.get("SystemService");
                     if (config.url.indexOf('login') > -1) {                        
-                        config.url = systemService.getCurrentInstance().authServiceName + config.url;                        
+                        config.url = systemService.getCurrentInstance().authServiceName + config.url; 
+                                             
                     } else if (config.url.indexOf('rest/user/') > -1) {
-                        config.url = systemService.getCurrentInstance().serviceName + config.url;                        
+                        config.url = systemService.getCurrentInstance().serviceName + config.url;  
+
+                    }
+                    else
+                    {
+                         config.url = systemService.getCurrentInstance().serviceName + config.url;
+                         console.log(config.url);
                     }
                     
                 }
+
                 return config;
             }
         }

@@ -6,10 +6,10 @@
 
 {{errmessage}}
 </div>
-<form novalidate name="loginForm" autocomplete="off">
+    <form novalidate name="loginForm" autocomplete="off">
 <h1>Login Form</h1>
 <div class="form-group elVal">
-<input type="text" class="form-control" name="email" id="email" placeholder="Email" ng-model="login.email" 	validator="required,email" required-error-message="Email is required" email-error-message="Invalid email address" valid-method="watch" />
+<input type="text" class="form-control" name="email" id="email" placeholder="Email" ng-model="login.email" validator="required,email" required-error-message="Email is required" email-error-message="Invalid email address" valid-method="watch" />
 </div>
 <div class="form-group elVal">
 <input type="password" name="password" value="" placeholder="Password" class="form-control" ng-model="login.password" validator="required" required-error-message="Password is required" valid-method="watch" />

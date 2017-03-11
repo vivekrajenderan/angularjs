@@ -10,52 +10,49 @@ class Users_model extends CI_Model {
         $this->load->database();
     }
 
-    function user_lists($request) {    
-        $data_array=array();
-        $getTotal=array();
-        $customers=array();
-        $where=" where standing!=''";
-        if (isset($request['params']->fname) && !empty($request['params']->fname)) {            
-             $where .=" and fname  LIKE '%" . $request['params']->fname . "%'";
-            } 
-        if (isset($request['params']->lname) && !empty($request['params']->lname)) {            
-             $where .=" and lname  LIKE '%" . $request['params']->lname . "%'";
-            }
-        if (isset($request['params']->emailid) && !empty($request['params']->emailid)) {            
-             $where .=" and emailid  LIKE '%" . $request['params']->emailid . "%'";
-            }
-        if (isset($request['params']->mobileno) && !empty($request['params']->mobileno)) {            
-             $where .=" and mobileno  LIKE '%" . $request['params']->mobileno . "%'";
-            }
-        if (isset($request['params']->vc_number) && !empty($request['params']->vc_number)) {            
-             $where .=" and vc_number  LIKE '%" . $request['params']->vc_number . "%'";
-            }
+    function user_lists($request) {
+        $data_array = array();
+        $getTotal = array();
+        $customers = array();
+        $where = " where standing!=''";
+        if (isset($request['params']->fname) && !empty($request['params']->fname)) {
+            $where .=" and fname  LIKE '%" . $request['params']->fname . "%'";
+        }
+        if (isset($request['params']->lname) && !empty($request['params']->lname)) {
+            $where .=" and lname  LIKE '%" . $request['params']->lname . "%'";
+        }
+        if (isset($request['params']->emailid) && !empty($request['params']->emailid)) {
+            $where .=" and emailid  LIKE '%" . $request['params']->emailid . "%'";
+        }
+        if (isset($request['params']->mobileno) && !empty($request['params']->mobileno)) {
+            $where .=" and mobileno  LIKE '%" . $request['params']->mobileno . "%'";
+        }
+        if (isset($request['params']->vc_number) && !empty($request['params']->vc_number)) {
+            $where .=" and vc_number  LIKE '%" . $request['params']->vc_number . "%'";
+        }
         if (isset($request['count']) && isset($request['page'])) {
             $page = 0;
             $page = ($request['count'] * ($request['page'] - 1));
 
-            $query1="select * ,case standing when '0' then 'false' when '1' then 'true' end as standing_status from cust_mst";
-            $query1 .=$where." limit ".$page.','.$request['count'];          
-            $query = $this->db->query($query1);                   
+            $query1 = "select * ,case standing when '0' then 'false' when '1' then 'true' end as standing_status from cust_mst";
+            $query1 .=$where . " limit " . $page . ',' . $request['count'];
+            $query = $this->db->query($query1);
             if ($query->num_rows() > 0) {
-            $data_array=$query->result_array();
+                $data_array = $query->result_array();
             }
 
-            $query2="select count(*) as total from cust_mst".$where;            
+            $query2 = "select count(*) as total from cust_mst" . $where;
             $query = $this->db->query($query2);
             if ($query->num_rows() > 0) {
-             $getTotal=$query->result_array();            
-            }                        
+                $getTotal = $query->result_array();
+            }
             $customers = array('data' => $data_array, 'count' => $getTotal[0]['total']);
-        }
-        else
-        {
-        $query2="select * ,case standing when '0' then 'false' when '1' then 'true' end as standing_status from cust_mst".$where;            
-        $query = $this->db->query($query2);
-        if ($query->num_rows() > 0) {
-        $customers=$query->result_array();
-        
-        } 
+        } else {
+            $query2 = "select * ,case standing when '0' then 'false' when '1' then 'true' end as standing_status from cust_mst" . $where;
+            $query = $this->db->query($query2);
+            if ($query->num_rows() > 0) {
+                $customers = $query->result_array();
+            }
         }
         return $customers;
     }
@@ -143,16 +140,15 @@ class Users_model extends CI_Model {
     public function update_users_mst($set_data, $pk_uid) {
         $this->db->where('pk_uid', $pk_uid);
         $this->db->update("user_mst", $set_data);
-        if ($this->db->affected_rows() > 0) {            
+        if ($this->db->affected_rows() > 0) {
             $this->session->unset_userdata('emailid');
-            $this->session->set_userdata('emailid',$set_data['emailid']);
+            $this->session->set_userdata('emailid', $set_data['emailid']);
             $this->session->unset_userdata('fname');
-            $this->session->set_userdata('fname',$set_data['fname']);
+            $this->session->set_userdata('fname', $set_data['fname']);
             $this->session->unset_userdata('lname');
-            $this->session->set_userdata('lname',$set_data['lname']);
+            $this->session->set_userdata('lname', $set_data['lname']);
             $this->session->unset_userdata('mobileno');
-            $this->session->set_userdata('mobileno',$set_data['mobileno']);
-            
+            $this->session->set_userdata('mobileno', $set_data['mobileno']);
         }
         return $this->db->affected_rows() > 0;
     }
