@@ -10,7 +10,7 @@
                         url: /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/,
                         email: /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/,
                         number: /^\d+$/,
-                        validateAlphaspecial: /^[a-zA-Z.,]+$/,                       
+                        validateAlphaspecial: /^[a-zA-Z.,]+$/,
                         validateNotEmpty: function (value) {
                             if (value.length == 0) {
                                 return false;
@@ -18,7 +18,7 @@
                                 return true;
                             }
                         },
-                        minlength: function (value, scope, element, attrs, param) {                            
+                        minlength: function (value, scope, element, attrs, param) {
                             return value.length >= attrs.minlength;
                         },
                         maxlength: function (value, scope, element, attrs, param) {
@@ -53,6 +53,21 @@
                                 return true;
                             }
                             return false;
+                        },
+                        validimage: function (value, scope, element, attrs, param) {
+                            var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+                            if ($.inArray(value.split('.').pop().toLowerCase(), fileExtension) == -1) {
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        },
+                        filesize:function (value, scope, element, attrs, param) {
+                            //var fsize = element[0].files[0].size;
+                            //alert('File size:' + fsize);
+                        return element[0].files[0].size <= attrs.filesize;    
                         }
                     };
                     var defaultMsg = {
@@ -79,6 +94,14 @@
                         maxlength: {
                             error: 'This should be shorter',
                             success: 'It\'s Number'
+                        },
+                        validimage: {
+                            error: 'This should be image',
+                            success: 'It\'s Image'
+                        },
+                        filesize: {
+                            error: 'This should be allowed maximum size',
+                            success: 'It\'s Image'
                         }
                     };
                     $validationProvider.setExpression(expression).setDefaultMsg(defaultMsg);

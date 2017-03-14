@@ -23,12 +23,12 @@ class Users extends CI_Controller {
 
     public function index() {
         $user_list = $this->users->user_lists($_POST);
-        echo json_encode(array('status'=>'true','response'=>$user_list));
+        echo json_encode(array('status' => 'true', 'response' => $user_list));
     }
 
     public function ajax_add() {
 
-
+        //echo "<pre>".print_r($_POST);die;
         if (($this->input->server('REQUEST_METHOD') == 'POST')) {
             $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[3]|max_length[30]');
             $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[3]|max_length[20]');
@@ -39,12 +39,40 @@ class Users extends CI_Controller {
 
                 echo json_encode(array('status' => 0, 'msg' => validation_errors()));
                 return false;
+            }
+            if (empty($this->input->post('file'))) {
+                echo json_encode(array('status' => 0, 'msg' => "Please upload profile image"));
             } else {
+                
+                $filename="";
+                    if (isset($_POST['file'])) {
+                    if (isset($_POST['file']->resImageDataURI)) {                        
+                    $storeFolder = "./upload/profile";
+                    if (!is_dir($storeFolder)) {
+                        mkdir($storeFolder, 0777, TRUE);
+                    }
+                    if (!is_dir($storeFolder)) {
+                        mkdir($storeFolder, 0777, TRUE);
+                    }
+                    $filename = md5(time()) . '-' . $_POST['file']->attachname;
+
+                    if (isset($_POST['file']->resImageDataURI) && !empty($_POST['file']->resImageDataURI)) {     
+                        $explode_data = explode(',', $_POST['file']->resImageDataURI);
+                        $image_data = base64_decode($explode_data[1]);
+                        file_put_contents($storeFolder . '/' . $filename . '', $image_data);                   
+                    }
+                }
+                }               
+                if ($filename == "") {
+                    echo json_encode(array('status' => 0, 'msg' => "<p>Please upload only image</p>"));
+                }
+                else {
                 $data = array('fname' => trim($this->input->post('fname')),
                     'lname' => trim($this->input->post('lname')),
                     'emailid' => trim($this->input->post('emailid')),
                     'mobileno' => trim($this->input->post('mobileno')),
-                    'vc_number' => trim($this->input->post('vc_number'))
+                    'vc_number' => trim($this->input->post('vc_number')),
+                    'profile_image'=>$filename
                 );
                 $add_users = $this->users->save_users($data);
                 if ($add_users == 1) {
@@ -52,6 +80,7 @@ class Users extends CI_Controller {
                     echo json_encode(array('status' => 1, 'msg' => ucfirst($this->input->post('fname')) . ' User has been Added Successfully'));
                 } else {
                     echo json_encode(array('status' => 0, 'msg' => 'User has not been Added Successfully'));
+                }
                 }
             }
         }
@@ -98,15 +127,14 @@ class Users extends CI_Controller {
         }
     }
 
-    public function exist_email_check() {           
-            $check_exist = $this->users->check_exist_email(trim($this->input->post('emailid')), trim($this->input->post('pk_cust_id')));
-            if (count($check_exist)) {
-                $this->form_validation->set_message('exist_email_check', 'Email already exists!');
-                return FALSE;
-            } else {
-                return TRUE;
-            }
-        
+    public function exist_email_check() {
+        $check_exist = $this->users->check_exist_email(trim($this->input->post('emailid')), trim($this->input->post('pk_cust_id')));
+        if (count($check_exist)) {
+            $this->form_validation->set_message('exist_email_check', 'Email already exists!');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
     }
 
     public function exist_vcnumber_check() {

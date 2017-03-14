@@ -75,6 +75,13 @@
                                     <input type="text" id="vc_number" name="vc_number"  ng-model="customer.vc_number" class="form-control col-md-7 col-xs-12" maxlength="30" minlength="3" validator="required,minlength,maxlength" required-error-message="VC Number is required" minlength-error-message="VC Number must be greater than 3 characters" maxlength-error-message="VC Number must be less than 30 characters" valid-method="watch">
                                 </div>
                             </div>
+                            <div class="form-group elVal">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">VC Number <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="file" id="profile_image" name="file" filesize="256000" filetype="image/jpeg,image/png,image/jpg,text/plain,application/pdf,application/kset,application/zip,application/vnd.ms-excel,application/ksettext/comma-separated-values,application/excel,application/vnd.ms-excel,application/ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.msexcel,text/anytext" ng-file-upload="onFileSelect($files)" ng-model="customer.profile_image" class="form-control col-md-7 col-xs-12" validator="required,validimage,filesize" required-error-message="Profile Image is required" validimage-error-message="Please choose valid profile image" filesize-error-message="Please upload maximum 256Kb size" valid-method="watch">
+                                </div>
+                            </div>                            
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
