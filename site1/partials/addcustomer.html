@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                             <div class="form-group elVal">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">VC Number <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Profile Image <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="file" id="profile_image" name="file" filesize="256000" filetype="image/jpeg,image/png,image/jpg,text/plain,application/pdf,application/kset,application/zip,application/vnd.ms-excel,application/ksettext/comma-separated-values,application/excel,application/vnd.ms-excel,application/ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.msexcel,text/anytext" ng-file-upload="onFileSelect($files)" ng-model="customer.profile_image" class="form-control col-md-7 col-xs-12" validator="required,validimage,filesize" required-error-message="Profile Image is required" validimage-error-message="Please choose valid profile image" filesize-error-message="Please upload maximum 256Kb size" valid-method="watch">

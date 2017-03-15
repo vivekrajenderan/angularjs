@@ -40,6 +40,18 @@ myApp.directive("ngFileUpload", function () {
     };
 });
 
+//Image check exist or not
+myApp.directive('img', function () {
+    return {
+        restrict: 'E',
+        link: function (scope, element, attr) {
+            element.on('error', function () {
+                element.removeAttr('alt');
+                attr.$set('src', 'no_image.png');
+            });
+        }
+    };
+});
 
 //Factories
 myApp.factory('customerServices', ['$http', function ($http) {
@@ -128,13 +140,11 @@ myApp.controller('customerController', function ($scope, $rootScope, $state, $fi
     });
 
     $scope.getUserData = function (indexval) {
-        $scope.cust = indexval;
+        $scope.cust = indexval;       
     };
 
-    $scope.statusChange = function (Fromvalue) {
-
-        Fromvalue.standing_enum = Fromvalue.standing_status ? "1" : "0";
-        console.log(Fromvalue.standing_enum);
+    $scope.statusChange = function (Fromvalue) {        
+        Fromvalue.standing_enum = (Fromvalue.standing_status) ? "1" : "0";       
 
         customerServices.custStatusChange(Fromvalue).then(function (result) {
             if (result.data.status == "1") {
@@ -152,14 +162,14 @@ myApp.controller('customerController', function ($scope, $rootScope, $state, $fi
         });
     };
     $scope.addcustomer = function () {
-        if ($scope.customerForm.$valid) {           
-            var formData = {};             
+        if ($scope.customerForm.$valid) {
+            var formData = {};
             formData.fname = $scope.customer.fname;
             formData.lname = $scope.customer.lname;
             formData.emailid = $scope.customer.emailid;
             formData.mobileno = $scope.customer.mobileno;
             formData.vc_number = $scope.customer.vc_number;
-            formData.file = $scope.tempattachment;           
+            formData.file = $scope.tempattachment;
             customerServices.addcustomer(formData, $rootScope).then(function (result) {
                 if (result.data.status == 1) {
                     var result_data = JSON.stringify(result.data.msg);
@@ -183,10 +193,10 @@ myApp.controller('customerController', function ($scope, $rootScope, $state, $fi
         console.log(upfile);
         console.log(itemid);
         var reader = new FileReader();
-        reader.onload = function(e)  {
+        reader.onload = function (e) {
             if (!$scope.tempattachment)
                 $scope.tempattachment = {};
-            
+
             $scope.tempattachment.resImageDataURI = e.target.result;
             $scope.tempattachment.upfiletype = upfile.file.type;
             $scope.tempattachment.attachname = upfile.file.name;
